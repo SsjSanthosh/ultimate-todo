@@ -1,5 +1,6 @@
 $PRIMARY-COLOR: #27ae60;
-
+$COLOR-GREY-LIGHT: #f2f2f2;
+$COLOR-GREY-DARK: #484c4f;
 .color-primary {
   color: $PRIMARY-COLOR;
 }
@@ -8,6 +9,13 @@ $PRIMARY-COLOR: #27ae60;
   background-color: $PRIMARY-COLOR;
 }
 
+.bg-color-grey {
+  background-color: $COLOR-GREY-LIGHT;
+}
+
+.bg-color-grey-dark {
+  background-color: $COLOR-GREY-DARK;
+}
 .color-white {
   color: #fff;
 }

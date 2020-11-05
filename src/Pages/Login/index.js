@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WebsiteLogo from "img/website_logo.png";
 import { Form, Input, Button, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
@@ -7,8 +7,15 @@ import "./style.scss";
 import { LOGIN_API_ENDPOINT } from "utils/endpoints";
 import { connect } from "react-redux";
 import { loginUser } from "Redux/Auth/actions";
-function Login({ history, loginUser, ...props }) {
+function Login({ history, loginUser, loggedIn, ...props }) {
   const [loading, setLoading] = useState(false);
+  console.log(loggedIn);
+  useEffect(() => {
+    if (loggedIn) {
+      message.info("You're already logged in. Redirecting to dashboard.");
+      history.push("/dashboard");
+    }
+  }, [loggedIn, history]);
   const handleFormSubmit = (values) => {
     setLoading(true);
     axios
@@ -82,4 +89,9 @@ function Login({ history, loginUser, ...props }) {
   );
 }
 
-export default connect(null, { loginUser })(Login);
+const mapStateToProps = ({ auth }) => {
+  return {
+    loggedIn: auth.loggedIn,
+  };
+};
+export default connect(mapStateToProps, { loginUser })(Login);
