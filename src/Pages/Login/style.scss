@@ -1,0 +1,33 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+  @media only screen and (max-width: 576px) {
+    flex-direction: column;
+    .login-hero,
+    .login-form {
+      width: 100%;
+    }
+  }
+  .login-hero {
+    flex: 1;
+    // padding: 4rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    > img {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+  .login-form-wrapper {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .login-form {
+      width: 70%;
+      margin: 0 auto;
+    }
+  }
+}

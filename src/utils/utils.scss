@@ -1,0 +1,20 @@
+$PRIMARY-COLOR: #27ae60;
+
+.color-primary {
+  color: $PRIMARY-COLOR;
+}
+
+.bg-color-primary {
+  background-color: $PRIMARY-COLOR;
+}
+
+.color-white {
+  color: #fff;
+}
+
+// Overriding ant-specific classes
+.app {
+  .ant-input-affix-wrapper:hover {
+    color: $PRIMARY-COLOR;
+  }
+}
