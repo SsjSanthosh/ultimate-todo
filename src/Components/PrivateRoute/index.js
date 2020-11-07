@@ -3,18 +3,17 @@ import React from "react";
 import Layout from "Components/Layout";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
+import { getItemFromLocalStorage, getTokenFromLocalStorage } from "utils/utils";
+import { LOCAL_STORAGE_TOKEN_NAME } from "utils/constants";
 
-// This component checks if the user has logged in, if they have, it sends them to the dashboard/user pages.
+// This component checks if the user has logged in (check token), if they have, it sends them to the dashboard/user pages.
 // If not, redirects them to the login page.
-function PrivateRoute({ loggedIn, component: Component, ...rest }) {
-  //   if (!loggedIn) {
-  //     message.error("You must be logged in to access this page.");
-  //   }
+function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
       render={(props) => {
-        return loggedIn ? (
+        return getItemFromLocalStorage(LOCAL_STORAGE_TOKEN_NAME) ? (
           <Layout>
             <Component {...props} />
           </Layout>
@@ -26,8 +25,4 @@ function PrivateRoute({ loggedIn, component: Component, ...rest }) {
   );
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { loggedIn: auth.loggedIn };
-};
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

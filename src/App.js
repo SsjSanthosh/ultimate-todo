@@ -8,13 +8,24 @@ import PrivateRoute from "Components/PrivateRoute";
 import { connect } from "react-redux";
 
 import { useEffect } from "react";
-import { getTokenFromLocalStorage } from "utils/utils";
+import { getItemFromLocalStorage, getTokenFromLocalStorage } from "utils/utils";
 import { loginUser } from "Redux/Auth/actions";
-function App({ loginUser }) {
+import TodoForm from "Pages/TodoForm";
+import {
+  LOCAL_STORAGE_TOKEN_NAME,
+  LOCAL_STORAGE_TASKS_NAME,
+} from "utils/constants";
+import { setTasks } from "Redux/Data/actions";
+
+function App({ loginUser, setTasks }) {
   useEffect(() => {
-    let token = getTokenFromLocalStorage();
+    let token = getItemFromLocalStorage(LOCAL_STORAGE_TOKEN_NAME);
+    let tasks = getItemFromLocalStorage(LOCAL_STORAGE_TASKS_NAME);
     if (token) {
       loginUser(token);
+    }
+    if (tasks) {
+      setTasks(tasks);
     }
   }, [loginUser]);
   return (
@@ -27,10 +38,15 @@ function App({ loginUser }) {
             path="/dashboard"
             component={Dashboard}
           ></PrivateRoute>
+          <PrivateRoute
+            exact
+            path={["/new-task", "/edit-task/:id"]}
+            component={TodoForm}
+          ></PrivateRoute>
         </Switch>
       </BrowserRouter>
     </div>
   );
 }
 
-export default connect(null, { loginUser })(App);
+export default connect(null, { loginUser, setTasks })(App);

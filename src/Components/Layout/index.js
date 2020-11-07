@@ -1,3 +1,4 @@
+import Header from "Components/Header";
 import Navbar from "Components/Navbar";
 import UserInfo from "Components/UserInfo";
 import React from "react";

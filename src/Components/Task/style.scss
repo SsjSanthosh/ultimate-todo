@@ -1,0 +1,48 @@
+.task {
+  width: 300px;
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // align-items: center;
+    .task-tag {
+      padding: 0rem 0.7rem;
+      color: #fff;
+      text-transform: capitalize;
+      border-radius: 5px;
+    }
+    .task-menu-icon {
+      font-size: 1.5rem;
+      transform: rotate(90deg);
+    }
+    .task-menu {
+    }
+  }
+
+  .task-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .task-title {
+      font-size: 2rem;
+    }
+  }
+  .subtasks-wrapper {
+    .subtask {
+      display: flex;
+      width: 100%;
+      .subtask-title {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+.task-menu {
+  .menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.3rem 1.5rem;
+  }
+}

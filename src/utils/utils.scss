@@ -9,7 +9,7 @@ $COLOR-GREY-DARK: #484c4f;
   background-color: $PRIMARY-COLOR;
 }
 
-.bg-color-grey {
+.bg-color-grey-light {
   background-color: $COLOR-GREY-LIGHT;
 }
 
@@ -20,6 +20,22 @@ $COLOR-GREY-DARK: #484c4f;
   color: #fff;
 }
 
+.color-grey-light {
+  color: $COLOR-GREY-LIGHT;
+}
+
+.support-text {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.color-black {
+  color: #000;
+}
+
+.border-bottom {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 // Overriding ant-specific classes
 .app {
   .ant-input-affix-wrapper:hover {
