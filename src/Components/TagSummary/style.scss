@@ -14,8 +14,10 @@
 
   .tag-display {
     margin: 0.5rem 0.8rem;
-    padding: 0.2rem;
+    padding: 0.3rem;
     font-size: 0.8rem;
+    border: 1px solid transparent;
+    cursor: pointer;
     @media only screen and (max-width: 768px) {
       margin: 0.8rem 0.2rem;
       padding: 0 0rem;

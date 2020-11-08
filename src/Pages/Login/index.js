@@ -5,13 +5,16 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./style.scss";
 import { LOGIN_API_ENDPOINT } from "utils/endpoints";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "Redux/Auth/actions";
-function Login({ history, loginUser, loggedIn, ...props }) {
+import { useHistory } from "react-router-dom";
+function Login() {
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const loggedIn = useSelector(({ auth }) => auth.loggedIn);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (loggedIn) {
-      message.info("You're already logged in. Redirecting to dashboard.");
       history.push("/dashboard");
     }
   }, [loggedIn, history]);
@@ -21,7 +24,7 @@ function Login({ history, loginUser, loggedIn, ...props }) {
       .post(LOGIN_API_ENDPOINT, { ...values })
       .then((res) => {
         setLoading(false);
-        loginUser(res.data.token);
+        dispatch(loginUser(res.data.token));
         message.success("Login successful! Redirecting to dashboard now.");
         history.push("/dashboard");
       })
@@ -87,9 +90,4 @@ function Login({ history, loginUser, loggedIn, ...props }) {
   );
 }
 
-const mapStateToProps = ({ auth }) => {
-  return {
-    loggedIn: auth.loggedIn,
-  };
-};
-export default connect(mapStateToProps, { loginUser })(Login);
+export default Login;

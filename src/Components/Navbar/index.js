@@ -2,14 +2,18 @@ import React from "react";
 import WebsiteBrand from "img/website_brand.png";
 import { PoweroffOutlined } from "@ant-design/icons";
 import { logoutUser } from "Redux/Auth/actions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { message } from "antd";
 
 import "./style.scss";
+import { useHistory } from "react-router-dom";
 
-function Navbar({ logoutUser }) {
+function Navbar() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleLogout = () => {
-    logoutUser();
+    dispatch(logoutUser());
+    history.push("/login");
     message.success("You have been logged out.");
   };
   return (
@@ -24,4 +28,4 @@ function Navbar({ logoutUser }) {
   );
 }
 
-export default connect(null, { logoutUser })(Navbar);
+export default Navbar;

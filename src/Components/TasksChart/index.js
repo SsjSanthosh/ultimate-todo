@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { TASK_STATUSES } from "utils/constants";
 import { ArrowsAltOutlined } from "@ant-design/icons";
 import "./style.scss";
 import { Modal } from "antd";
-function TasksChart({ tasks }) {
+function TasksChart() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const tasks = useSelector(({ tasks }) => tasks.tasks);
   const getStatusCount = (status) => {
     let count = 0;
     tasks.forEach((task) => {
@@ -57,29 +59,31 @@ function TasksChart({ tasks }) {
     );
   };
   return (
-    <div className="tasks-chart-wrapper">
-      <p className="chart-modal-switch" onClick={() => setIsModalVisible(true)}>
-        <ArrowsAltOutlined />
-      </p>
-      <p className="tasks-chart-title">Your task trends this week.</p>
-      {renderPieChart()}
-      {renderLegends()}
-      {isModalVisible && (
-        <Modal
-          title="Your weekly trends"
-          wrapClassName="chart-modal"
-          visible={isModalVisible}
-          onCancel={() => setIsModalVisible(false)}
+    tasks.length && (
+      <div className="tasks-chart-wrapper">
+        <p
+          className="chart-modal-switch"
+          onClick={() => setIsModalVisible(true)}
         >
-          {renderPieChart({ animate: true })}
-          {renderLegends()}
-        </Modal>
-      )}
-    </div>
+          <ArrowsAltOutlined />
+        </p>
+        <p className="tasks-chart-title">Your task trends this week.</p>
+        {renderPieChart()}
+        {renderLegends()}
+        {isModalVisible && (
+          <Modal
+            title="Your weekly trends"
+            wrapClassName="chart-modal"
+            visible={isModalVisible}
+            onCancel={() => setIsModalVisible(false)}
+          >
+            {renderPieChart({ animate: true })}
+            {renderLegends()}
+          </Modal>
+        )}
+      </div>
+    )
   );
 }
 
-const mapStateToProps = ({ tasks }) => {
-  return { tasks: tasks.tasks };
-};
-export default connect(mapStateToProps)(TasksChart);
+export default TasksChart;

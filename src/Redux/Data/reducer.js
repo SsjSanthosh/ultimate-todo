@@ -39,7 +39,7 @@ const dataReducer = (state = initialState, action) => {
     case TASK_ACTIONS.DELETE_TASK:
       editedTasks = state.tasks.filter((task) => task.id !== payload);
       setTasksInLocalStorage(editedTasks);
-      return { ...state, tasks: [[...editedTasks]] };
+      return { ...state, tasks: [...editedTasks] };
 
     case TASK_ACTIONS.EDIT_SUBTASK:
       const { taskId, subtaskId, value } = payload;

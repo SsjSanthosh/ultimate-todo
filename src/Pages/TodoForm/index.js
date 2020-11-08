@@ -20,8 +20,13 @@ import { v4 as uuid } from "uuid";
 import { TAG_OPTIONS, TASK_STATUSES } from "utils/constants";
 import moment from "moment";
 import { addTask, deleteTask, editTask } from "Redux/Data/actions";
-import { connect } from "react-redux";
-function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+function TodoForm({ match }) {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const tasks = useSelector(({ tasks }) => tasks.tasks);
+
   const newTaskValues = {
     name: "",
     subtasks: [],
@@ -32,9 +37,11 @@ function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
     date: moment(),
   };
 
-  const taskId = props.match.params.id;
+  const taskId = match.params.id;
   const handleFormSubmit = (values) => {
-    taskId ? editTask({ ...values }) : addTask({ ...values });
+    taskId
+      ? dispatch(editTask({ ...values }))
+      : dispatch(addTask({ ...values }));
     message.success(
       taskId ? "Task edited successfully" : "Task added successfully"
     );
@@ -52,7 +59,8 @@ function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
   const initialValues = taskId ? getEditTaskData() : newTaskValues;
 
   const handleTaskDelete = () => {
-    deleteTask(taskId);
+    dispatch(deleteTask(taskId));
+    history.push("/dashboard");
     message.success("Task deleted successfully.");
   };
 
@@ -197,9 +205,4 @@ function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
   );
 }
 
-export const mapStateToProps = ({ tasks }) => {
-  return { tasks: tasks.tasks };
-};
-export default connect(mapStateToProps, { addTask, editTask, deleteTask })(
-  TodoForm
-);
+export default TodoForm;

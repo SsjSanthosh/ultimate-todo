@@ -11,9 +11,11 @@ import {
 import moment from "moment";
 import "./style.scss";
 import { deleteTask, editSubtask } from "Redux/Data/actions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTrimmedString } from "utils/utils";
-function Task({ task, deleteTask, editSubtask }) {
+function Task({ task }) {
+  const dispatch = useDispatch();
+
   const tagColor = (currentTag) => {
     return TAG_OPTIONS.find((tag) => currentTag === tag.value).color;
   };
@@ -33,12 +35,12 @@ function Task({ task, deleteTask, editSubtask }) {
   };
 
   const handleDelete = () => {
-    deleteTask(task.id);
+    dispatch(deleteTask(task.id));
     message.success("Deleted task successfully.");
   };
 
   const handleSubtaskChange = (e, subtaskId) => {
-    editSubtask(task.id, subtaskId, e.target.checked);
+    dispatch(editSubtask(task.id, subtaskId, e.target.checked));
     message.success("Subtask changed successfully");
   };
 
@@ -99,4 +101,4 @@ function Task({ task, deleteTask, editSubtask }) {
   );
 }
 
-export default connect(null, { deleteTask, editSubtask })(Task);
+export default Task;

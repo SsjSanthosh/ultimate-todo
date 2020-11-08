@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { setUser } from "Redux/Auth/actions";
+import React from "react";
+import { useSelector } from "react-redux";
+
 import { LoadingOutlined } from "@ant-design/icons";
 
 import "./style.scss";
 import TagSummary from "./../TagSummary/index";
 import TasksChart from "./../TasksChart/index";
-function UserInfo({ user, setUser }) {
+function UserInfo() {
+  const user = useSelector(({ auth }) => auth.user);
   const renderUser = () => {
     return (
       <div className="user">
@@ -35,7 +36,4 @@ function UserInfo({ user, setUser }) {
   );
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { user: auth.user };
-};
-export default connect(mapStateToProps)(UserInfo);
+export default UserInfo;

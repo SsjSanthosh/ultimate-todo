@@ -1,9 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TAG_DISPLAY } from "utils/constants";
 import "./style.scss";
 import { setFilterTag } from "Redux/Data/actions";
-function TagSummary({ tasks, setFilterTag, filterTag }) {
+function TagSummary() {
+  const tasks = useSelector(({ tasks }) => tasks.tasks);
+  const filterTag = useSelector(({ tasks }) => tasks.filterTag);
+  const dispatch = useDispatch();
   const getTagCount = (currentTag) => {
     if (currentTag === "") {
       return tasks.length;
@@ -18,7 +21,7 @@ function TagSummary({ tasks, setFilterTag, filterTag }) {
   };
 
   const handleTagSelect = (tag) => {
-    setFilterTag(tag);
+    dispatch(setFilterTag(tag));
   };
   const renderTags = () => {
     return TAG_DISPLAY.map((tag) => {
@@ -39,8 +42,4 @@ function TagSummary({ tasks, setFilterTag, filterTag }) {
   return <div className="bg-color-grey-light tags-wrapper">{renderTags()}</div>;
 }
 
-const mapStateToProps = ({ tasks }) => {
-  return { tasks: tasks.tasks, filterTag: tasks.filterTag };
-};
-
-export default connect(mapStateToProps, { setFilterTag })(TagSummary);
+export default TagSummary;

@@ -3,10 +3,10 @@ import Login from "./Pages/Login";
 
 import Dashboard from "Pages/Dashboard";
 import PrivateRoute from "Components/PrivateRoute";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useEffect } from "react";
-import { getItemFromLocalStorage, getTokenFromLocalStorage } from "utils/utils";
+import { getItemFromLocalStorage } from "utils/utils";
 import { loginUser, setUser } from "Redux/Auth/actions";
 import TodoForm from "Pages/TodoForm";
 import {
@@ -16,18 +16,19 @@ import {
 import { setTasks } from "Redux/Data/actions";
 import "antd/dist/antd.less";
 import "utils/utils.scss";
-function App({ loginUser, setTasks, setUser }) {
+function App() {
+  const dispatch = useDispatch();
   useEffect(() => {
     let token = getItemFromLocalStorage(LOCAL_STORAGE_TOKEN_NAME);
     let tasks = getItemFromLocalStorage(LOCAL_STORAGE_TASKS_NAME);
     if (token) {
-      loginUser(token);
-      setUser();
+      dispatch(loginUser(token));
+      dispatch(setUser());
     }
     if (tasks) {
-      setTasks(tasks);
+      dispatch(setTasks(tasks));
     }
-  }, [loginUser]);
+  }, [dispatch]);
   return (
     <div className="App">
       <BrowserRouter>
@@ -52,4 +53,4 @@ function App({ loginUser, setTasks, setUser }) {
   );
 }
 
-export default connect(null, { loginUser, setTasks, setUser })(App);
+export default App;

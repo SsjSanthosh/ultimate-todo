@@ -1,12 +1,17 @@
 import Header from "Components/Header";
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TASK_STATUSES } from "utils/constants";
 import TaskList from "Components/TaskList";
 import "./style.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { changeTaskStatus } from "Redux/Data/actions";
-function Dashboard({ history, tasks, changeTaskStatus, filterTag, ...props }) {
+
+function Dashboard() {
+  const tasks = useSelector(({ tasks }) => tasks.tasks);
+  const filterTag = useSelector(({ tasks }) => tasks.filterTag);
+  const dispatch = useDispatch();
+
   const getTasksByStatus = (status) => {
     const displayTasks = filterTag
       ? tasks.filter((task) => task.tag.some((tag) => tag === filterTag))
@@ -17,10 +22,11 @@ function Dashboard({ history, tasks, changeTaskStatus, filterTag, ...props }) {
   const handleDragEnd = (result) => {
     if (!result.destination) return;
     if (result.destination.droppableId !== result.source.droppableId) {
-      changeTaskStatus(result.draggableId, result.destination.droppableId);
+      dispatch(
+        changeTaskStatus(result.draggableId, result.destination.droppableId)
+      );
     }
   };
-  console.log("filtering by", filterTag);
 
   return (
     <div>
@@ -66,7 +72,4 @@ function Dashboard({ history, tasks, changeTaskStatus, filterTag, ...props }) {
   );
 }
 
-const mapStateToProps = ({ tasks }) => {
-  return { tasks: tasks.tasks, filterTag: tasks.filterTag };
-};
-export default connect(mapStateToProps, { changeTaskStatus })(Dashboard);
+export default Dashboard;
