@@ -1,21 +1,27 @@
 import Header from "Components/Header";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TASK_STATUSES } from "utils/constants";
 import TaskList from "Components/TaskList";
 import "./style.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { changeTaskStatus } from "Redux/Data/actions";
+import { setUser } from "Redux/Auth/actions";
 
 function Dashboard() {
   const tasks = useSelector(({ tasks }) => tasks.tasks);
   const filterTag = useSelector(({ tasks }) => tasks.filterTag);
+
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(setUser());
+  }, []);
   const getTasksByStatus = (status) => {
     const displayTasks = filterTag
       ? tasks.filter((task) => task.tag.some((tag) => tag === filterTag))
       : tasks;
+    console.log(displayTasks, "here");
     return displayTasks.filter((task) => task.status === status.value);
   };
 

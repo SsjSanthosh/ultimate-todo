@@ -53,6 +53,7 @@ function Login() {
             <Form.Item
               name="email"
               rules={[{ required: true, message: "Please input your Email!" }]}
+              initialValue="eve.holt@reqres.in"
             >
               <Input
                 type="email"
