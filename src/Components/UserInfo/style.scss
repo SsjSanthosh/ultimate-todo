@@ -1,0 +1,51 @@
+.user-info {
+  border-right: 1px solid #1da57a;
+  @media only screen and (max-width: 768px) {
+    border-right: 0;
+  }
+  .user {
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+    @media only screen and (max-width: 768px) {
+      position: absolute;
+      padding: 0;
+      top: 4px;
+      left: 6%;
+    }
+    // display: none;
+    .user-avatar {
+      width: 60px;
+      height: 60px;
+      margin-right: 1rem;
+      > img {
+        height: 100%;
+        height: 100%;
+        border-radius: 100%;
+        border: 1px solid #1da57a;
+      }
+      @media only screen and (max-width: 768px) {
+        width: 35px;
+        height: 35px;
+        > img {
+          height: 100%;
+          height: 100%;
+          border-radius: 100%;
+          border: 1px solid #1da57a;
+        }
+      }
+    }
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .user-name {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+      }
+      @media only screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+}

@@ -10,17 +10,22 @@ import {
 
 import moment from "moment";
 import "./style.scss";
-import { deleteTask } from "Redux/Data/actions";
+import { deleteTask, editSubtask } from "Redux/Data/actions";
 import { connect } from "react-redux";
-function Task({ task, deleteTask }) {
+function Task({ task, deleteTask, editSubtask }) {
   const tagColor = (currentTag) => {
     return TAG_OPTIONS.find((tag) => currentTag === tag.value).color;
   };
 
+  console.log("renderin");
   const renderTag = () => {
     return task.tag.map((tag) => {
       return (
-        <span className="task-tag" style={{ backgroundColor: tagColor(tag) }}>
+        <span
+          className="task-tag"
+          style={{ backgroundColor: tagColor(tag) }}
+          key={tag}
+        >
           {tag}
         </span>
       );
@@ -30,6 +35,11 @@ function Task({ task, deleteTask }) {
   const handleDelete = () => {
     deleteTask(task.id);
     message.success("Deleted task successfully.");
+  };
+
+  const handleSubtaskChange = (e, subtaskId) => {
+    editSubtask(task.id, subtaskId, e.target.checked);
+    message.success("Subtask changed successfully");
   };
 
   const menu = (
@@ -49,20 +59,23 @@ function Task({ task, deleteTask }) {
     return task?.subtasks?.length ? (
       <div className="subtasks-wrapper">
         {task.subtasks.map((task) => (
-          <p className="subtask border-bottom">
-            <Checkbox defaultChecked={task.done} />
+          <p className="subtask border-bottom" key={task.id}>
+            <Checkbox
+              defaultChecked={task.done}
+              onChange={(e) => handleSubtaskChange(e, task.id)}
+            />
             <span className="subtask-title">{task.name}</span>
           </p>
         ))}
       </div>
     ) : (
-      <p className="No sub tasks."></p>
+      <p className="support-text">No subtasks.</p>
     );
   };
 
   return (
     <div className="task">
-      <Card>
+      <Card className="task-card">
         <div className="task-header">
           <p className="task-tags">{renderTag()}</p>
           <Dropdown overlay={menu}>
@@ -76,9 +89,7 @@ function Task({ task, deleteTask }) {
           </p>
         </div>
         {task.description && (
-          <p className="task-description support-text border-bottom">
-            {task.description}
-          </p>
+          <p className="task-description  border-bottom">{task.description}</p>
         )}
         <div className="task-subtasks">{renderSubtasks()}</div>
       </Card>
@@ -86,4 +97,4 @@ function Task({ task, deleteTask }) {
   );
 }
 
-export default connect(null, { deleteTask })(Task);
+export default connect(null, { deleteTask, editSubtask })(Task);

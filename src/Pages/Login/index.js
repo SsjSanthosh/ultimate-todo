@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import { loginUser } from "Redux/Auth/actions";
 function Login({ history, loginUser, loggedIn, ...props }) {
   const [loading, setLoading] = useState(false);
-  console.log(loggedIn);
   useEffect(() => {
     if (loggedIn) {
       message.info("You're already logged in. Redirecting to dashboard.");
@@ -25,7 +24,6 @@ function Login({ history, loginUser, loggedIn, ...props }) {
         loginUser(res.data.token);
         message.success("Login successful! Redirecting to dashboard now.");
         history.push("/dashboard");
-        console.log(res.data);
       })
       .catch((err) => {
         setLoading(false);

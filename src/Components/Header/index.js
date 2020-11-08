@@ -6,12 +6,18 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div className="page-header-wrapper">
-      <Input className="bg-color-grey-light header-search" />
+      <Input
+        className="bg-color-grey-light header-search"
+        placeholder="Search"
+      />
       <Link to="/new-task">
-        <Button className="bg-color-primary header-button">New task</Button>
+        <Button className="bg-color-primary header-button color-white">
+          New task
+        </Button>
       </Link>
       <DatePicker
         defaultValue={moment()}
+        disabled
         className="bg-color-grey-light header-date"
       />
     </div>

@@ -20,6 +20,9 @@ const initialState = [];
 
 const dataReducer = (state = initialState, action) => {
   const { payload, type } = action;
+  let editedTasks = [];
+  let index = 0;
+  let task;
   switch (type) {
     case TASK_ACTIONS.ADD_TASK:
       const addTask = [...state, payload];
@@ -27,19 +30,41 @@ const dataReducer = (state = initialState, action) => {
       return addTask;
 
     case TASK_ACTIONS.EDIT_TASK:
-      const index = state.findIndex((task) => task.id === payload.id);
-      const newTasks = [...state];
-      newTasks[index] = payload;
-      setTasksInLocalStorage(newTasks);
-      return [...newTasks];
+      index = state.findIndex((task) => task.id === payload.id);
+      editedTasks = [...state];
+      editedTasks[index] = payload;
+      setTasksInLocalStorage(editedTasks);
+      return [...editedTasks];
 
     case TASK_ACTIONS.DELETE_TASK:
-      const deletedTasks = state.filter((task) => task.id !== payload);
-      setTasksInLocalStorage(deletedTasks);
-      return [...deletedTasks];
+      editedTasks = state.filter((task) => task.id !== payload);
+      setTasksInLocalStorage(editedTasks);
+      return [...editedTasks];
+
+    case TASK_ACTIONS.EDIT_SUBTASK:
+      const { taskId, subtaskId, value } = payload;
+      index = state.findIndex((task) => task.id === taskId);
+      task = state[index];
+
+      const subtaskIndex = task.subtasks.findIndex(
+        (subtask) => subtask.id === subtaskId
+      );
+      task.subtasks[subtaskIndex].done = value;
+      editedTasks = [...state];
+      editedTasks[index] = { ...task };
+      setTasksInLocalStorage(editedTasks);
+      return [...editedTasks];
 
     case TASK_ACTIONS.SET_TASKS:
       return JSON.parse(payload);
+
+    case TASK_ACTIONS.CHANGE_TASK_STATUS:
+      let { id, status } = payload;
+      editedTasks = [...state];
+      index = editedTasks.findIndex((task) => task.id === id);
+      editedTasks[index] = { ...editedTasks[index], status: status };
+      setTasksInLocalStorage(editedTasks);
+      return [...editedTasks];
     default:
       return state;
   }

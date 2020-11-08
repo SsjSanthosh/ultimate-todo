@@ -5,15 +5,24 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    padding: 0 2rem;
+  }
   .navbar-brand {
-    width: 50px;
+    width: 30px;
+    @media only screen and (max-width: 768px) {
+      opacity: 0;
+    }
     > img {
       width: 100%;
       height: 100%;
     }
   }
   .navbar-logout {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
   }
 }

@@ -16,22 +16,22 @@ import {
   Space,
   message,
 } from "antd";
-import uuid from "react-uuid";
-import { TAG_OPTIONS } from "utils/constants";
+import { v4 as uuid } from "uuid";
+import { TAG_OPTIONS, TASK_STATUSES } from "utils/constants";
 import moment from "moment";
-import { addTask, editTask } from "Redux/Data/actions";
+import { addTask, deleteTask, editTask } from "Redux/Data/actions";
 import { connect } from "react-redux";
-function TodoForm({ history, addTask, editTask, tasks, ...props }) {
+function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
   const newTaskValues = {
-    name: "new",
+    name: "",
     subtasks: [],
     id: uuid(),
     description: "",
-    status: "todo",
+    status: "to-do",
     tag: [TAG_OPTIONS[0].value],
     date: moment(),
   };
-  const handleChange = (e) => console.log(e.target.value);
+
   const taskId = props.match.params.id;
   const handleFormSubmit = (values) => {
     taskId ? editTask({ ...values }) : addTask({ ...values });
@@ -50,6 +50,11 @@ function TodoForm({ history, addTask, editTask, tasks, ...props }) {
   };
 
   const initialValues = taskId ? getEditTaskData() : newTaskValues;
+
+  const handleTaskDelete = () => {
+    deleteTask(taskId);
+    message.success("Task deleted successfully.");
+  };
   return (
     <div className="todo-page">
       <div className="todo-page-header">
@@ -67,101 +72,125 @@ function TodoForm({ history, addTask, editTask, tasks, ...props }) {
           initialValues={initialValues}
         >
           <div className="form-group-flex">
-            <Form.Item
-              label="Task name"
-              name="name"
-              rules={[
-                { required: true, message: "Please input your task name!" },
-              ]}
-            >
-              <Input placeholder="Task name" className="bg-color-grey-light" />
-            </Form.Item>
-            <Form.List name="subtasks">
-              {(fields, { add, remove }) => (
-                <>
-                  {fields.map((field) => (
-                    <Space
-                      key={field.key}
-                      style={{ display: "flex", marginBottom: 8 }}
-                      align="baseline"
-                    >
-                      <Form.Item
-                        {...field}
-                        name={[field.name, "done"]}
-                        initialValue={false}
-                        valuePropName="checked"
+            <div className="form-group-main">
+              <Form.Item
+                label="Task name"
+                name="name"
+                rules={[
+                  { required: true, message: "Please input your task name!" },
+                ]}
+              >
+                <Input
+                  placeholder="Task name"
+                  className="bg-color-grey-light"
+                />
+              </Form.Item>
+
+              <Form.Item name="id" style={{ display: "none" }}>
+                <Input type="hidden" />
+              </Form.Item>
+              <Form.Item label="Task description" name="description">
+                <Input
+                  type="textarea"
+                  placeholder="Task description"
+                  className="bg-color-grey-light"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Branch to"
+                name="status"
+                rules={[{ required: true, message: "Please choose a status." }]}
+              >
+                <Radio.Group>
+                  {TASK_STATUSES.map((status) => {
+                    return (
+                      <Radio.Button value={status.value}>
+                        {status.name}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item
+                label="Select tag"
+                name="tag"
+                rules={[{ required: true, message: "Please choose a tag." }]}
+              >
+                <Checkbox.Group options={TAG_OPTIONS}></Checkbox.Group>
+              </Form.Item>
+              <Form.Item label="Select date" name="date">
+                <DatePicker></DatePicker>
+              </Form.Item>
+              <div className="form-group-buttons">
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    Submit
+                  </Button>
+                </Form.Item>
+                {taskId && (
+                  <Button type="primary" danger onClick={handleTaskDelete}>
+                    Delete task
+                  </Button>
+                )}
+              </div>
+            </div>
+            <div className="form-group-subtasks">
+              <p className="mb8">Subtasks</p>
+              <Form.List name="subtasks">
+                {(fields, { add, remove }) => (
+                  <>
+                    {fields.map((field) => (
+                      <Space
+                        key={field.key}
+                        style={{ display: "flex", marginBottom: 8 }}
+                        align="baseline"
                       >
-                        <Checkbox defaultChecked={false} />
-                      </Form.Item>
-                      <Form.Item
-                        {...field}
-                        name={[field.name, "name"]}
-                        rules={[
-                          {
-                            required: true,
-                            message: "Subtask cannot be blank.",
-                          },
-                        ]}
+                        <Form.Item
+                          {...field}
+                          name={[field.name, "done"]}
+                          initialValue={false}
+                          valuePropName="checked"
+                        >
+                          <Checkbox defaultChecked={false} />
+                        </Form.Item>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, "name"]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Subtask cannot be blank.",
+                            },
+                          ]}
+                        >
+                          <Input placeholder="Subtask name" />
+                        </Form.Item>
+                        <Form.Item
+                          name={[field.name, "id"]}
+                          initialValue={uuid()}
+                          label="id"
+                          style={{ display: "none" }}
+                        >
+                          <Input type="hidden" />
+                        </Form.Item>
+                        <DeleteOutlined onClick={() => remove(field.name)} />
+                      </Space>
+                    ))}
+                    <Form.Item>
+                      <Button
+                        type="dashed"
+                        onClick={() => add()}
+                        block
+                        icon={<PlusOutlined />}
                       >
-                        <Input placeholder="Subtask name" />
-                      </Form.Item>
-                      <Form.Item
-                        name={[field.name, "id"]}
-                        initialValue={uuid()}
-                        label="id"
-                        style={{ display: "none" }}
-                      >
-                        <Input type="hidden" />
-                      </Form.Item>
-                      <DeleteOutlined onClick={() => remove(field.name)} />
-                    </Space>
-                  ))}
-                  <Form.Item>
-                    <Button
-                      type="dashed"
-                      onClick={() => add()}
-                      block
-                      icon={<PlusOutlined />}
-                    >
-                      Add subtask
-                    </Button>
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
+                        Add subtask
+                      </Button>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+            </div>
           </div>
-          <Form.Item name="id">
-            <Input type="hidden" />
-          </Form.Item>
-          <Form.Item label="Task description" name="description">
-            <Input
-              type="textarea"
-              placeholder="Task description"
-              className="bg-color-grey-light"
-            />
-          </Form.Item>
-          <Form.Item
-            label="Branch to"
-            name="status"
-            rules={[{ required: true, message: "Please choose a status." }]}
-          >
-            <Radio.Group onChange={handleChange}>
-              <Radio.Button value="todo">To-do</Radio.Button>
-              <Radio.Button value="in-progress">In Progress</Radio.Button>
-              <Radio.Button value="done">Done</Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item label="Select tag" name="tag">
-            <Checkbox.Group options={TAG_OPTIONS}></Checkbox.Group>
-          </Form.Item>
-          <Form.Item label="Select date" name="date">
-            <DatePicker></DatePicker>
-          </Form.Item>
-          <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
         </Form>
       </div>
     </div>
@@ -171,4 +200,6 @@ function TodoForm({ history, addTask, editTask, tasks, ...props }) {
 export const mapStateToProps = ({ tasks }) => {
   return { tasks };
 };
-export default connect(mapStateToProps, { addTask, editTask })(TodoForm);
+export default connect(mapStateToProps, { addTask, editTask, deleteTask })(
+  TodoForm
+);

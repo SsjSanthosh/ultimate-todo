@@ -1,6 +1,7 @@
 export const AUTH_ACTIONS = {
   LOG_IN: "LOG_IN",
   LOG_OUT: "LOG_OUT",
+  SET_USER: "SET_USER",
 };
 
 export const LOCAL_STORAGE_TOKEN_NAME = "todoultimatetoken";
@@ -13,6 +14,12 @@ export const TAG_OPTIONS = [
   { label: "Misc", value: "misc", color: "#F2994A" },
 ];
 
+export const TASK_STATUSES = [
+  { name: "To-do", value: "to-do", color: "#F2C94C" },
+  { name: "In progress", value: "in-progress", color: "#27AE60" },
+  { name: "Done", value: "done", color: "#2F80ED" },
+];
+
 export const TAG_DISPLAY = [
   { label: "all", value: "All", color: "#2D9CDB" },
   ...TAG_OPTIONS,
@@ -22,4 +29,6 @@ export const TASK_ACTIONS = {
   ADD_TASK: "ADD_TASK",
   DELETE_TASK: "DELETE_TASK",
   SET_TASKS: "SET_TASKS",
+  EDIT_SUBTASK: "EDIT_SUBTASK",
+  CHANGE_TASK_STATUS: "CHANGE_TASK_STATUS",
 };

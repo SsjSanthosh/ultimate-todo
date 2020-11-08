@@ -8,7 +8,6 @@ import { message } from "antd";
 import "./style.scss";
 
 function Navbar({ logoutUser }) {
-  console.log(logoutUser);
   const handleLogout = () => {
     logoutUser();
     message.success("You have been logged out.");

@@ -15,3 +15,17 @@ export const deleteTask = (id) => (dispatch) => {
 export const setTasks = (tasks) => (dispatch) => {
   return dispatch({ type: TASK_ACTIONS.SET_TASKS, payload: tasks });
 };
+
+export const editSubtask = (taskId, subtaskId, value) => (dispatch) => {
+  return dispatch({
+    type: TASK_ACTIONS.EDIT_SUBTASK,
+    payload: { taskId, subtaskId, value },
+  });
+};
+
+export const changeTaskStatus = (id, status) => (dispatch) => {
+  return dispatch({
+    type: TASK_ACTIONS.CHANGE_TASK_STATUS,
+    payload: { id, status },
+  });
+};

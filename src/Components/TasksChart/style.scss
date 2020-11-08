@@ -1,0 +1,30 @@
+.tasks-chart-wrapper {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .tasks-chart-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .tasks-chart {
+    width: 220px;
+    margin: 0 auto;
+  }
+  .tasks-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    .legend {
+      display: flex;
+      margin: 0.5rem;
+      .status-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        margin-right: 8px;
+      }
+    }
+  }
+}
