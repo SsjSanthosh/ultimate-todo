@@ -56,7 +56,7 @@ const dataReducer = (state = initialState, action) => {
       return { ...state, tasks: [...editedTasks] };
 
     case TASK_ACTIONS.SET_TASKS:
-      return { ...JSON.parse(payload), filterTag: "" };
+      return { tasks: [...JSON.parse(payload)], filterTag: "" };
 
     case TASK_ACTIONS.CHANGE_TASK_STATUS:
       let { id, status } = payload;

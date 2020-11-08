@@ -13,7 +13,6 @@ function Dashboard() {
   const filterTag = useSelector(({ tasks }) => tasks.filterTag);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(setUser());
   }, []);
@@ -21,7 +20,7 @@ function Dashboard() {
     const displayTasks = filterTag
       ? tasks.filter((task) => task.tag.some((tag) => tag === filterTag))
       : tasks;
-    console.log(displayTasks, "here");
+
     return displayTasks.filter((task) => task.status === status.value);
   };
 
