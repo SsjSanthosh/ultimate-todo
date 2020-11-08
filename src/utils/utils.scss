@@ -1,6 +1,11 @@
 $PRIMARY-COLOR: #27ae60;
 $COLOR-GREY-LIGHT: #f2f2f2;
 $COLOR-GREY-DARK: #484c4f;
+p,
+div {
+  margin: 0;
+  padding: 0;
+}
 .color-primary {
   color: $PRIMARY-COLOR;
 }
@@ -52,8 +57,5 @@ $COLOR-GREY-DARK: #484c4f;
 
   .ant-btn {
     border-radius: 4px;
-  }
-  .ant-input {
-    border-radius: 20px;
   }
 }

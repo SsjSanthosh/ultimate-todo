@@ -29,3 +29,7 @@ export const changeTaskStatus = (id, status) => (dispatch) => {
     payload: { id, status },
   });
 };
+
+export const setFilterTag = (tag) => (dispatch) => {
+  return dispatch({ type: TASK_ACTIONS.SET_FILTER_TAG, payload: tag });
+};

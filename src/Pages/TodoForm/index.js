@@ -55,6 +55,7 @@ function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
     deleteTask(taskId);
     message.success("Task deleted successfully.");
   };
+
   return (
     <div className="todo-page">
       <div className="todo-page-header">
@@ -90,8 +91,7 @@ function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
                 <Input type="hidden" />
               </Form.Item>
               <Form.Item label="Task description" name="description">
-                <Input
-                  type="textarea"
+                <Input.TextArea
                   placeholder="Task description"
                   className="bg-color-grey-light"
                 />
@@ -198,7 +198,7 @@ function TodoForm({ history, addTask, editTask, deleteTask, tasks, ...props }) {
 }
 
 export const mapStateToProps = ({ tasks }) => {
-  return { tasks };
+  return { tasks: tasks.tasks };
 };
 export default connect(mapStateToProps, { addTask, editTask, deleteTask })(
   TodoForm

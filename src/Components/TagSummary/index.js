@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { TAG_DISPLAY } from "utils/constants";
 import "./style.scss";
-function TagSummary({ tasks }) {
+import { setFilterTag } from "Redux/Data/actions";
+function TagSummary({ tasks, setFilterTag, filterTag }) {
   const getTagCount = (currentTag) => {
-    if (currentTag === "All") {
+    if (currentTag === "") {
       return tasks.length;
     }
     let count = 0;
@@ -15,10 +16,18 @@ function TagSummary({ tasks }) {
     });
     return count;
   };
+
+  const handleTagSelect = (tag) => {
+    setFilterTag(tag);
+  };
   const renderTags = () => {
     return TAG_DISPLAY.map((tag) => {
       return (
-        <div className="tag-display" key={tag.value}>
+        <div
+          className={`tag-display ${tag.value === filterTag && "selected-tag"}`}
+          key={tag.value}
+          onClick={() => handleTagSelect(tag.value)}
+        >
           <span className="task-tag" style={{ backgroundColor: tag.color }}>
             {tag.label}
           </span>
@@ -31,7 +40,7 @@ function TagSummary({ tasks }) {
 }
 
 const mapStateToProps = ({ tasks }) => {
-  return { tasks };
+  return { tasks: tasks.tasks, filterTag: tasks.filterTag };
 };
 
-export default connect(mapStateToProps)(TagSummary);
+export default connect(mapStateToProps, { setFilterTag })(TagSummary);

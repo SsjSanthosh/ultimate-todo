@@ -12,12 +12,12 @@ import moment from "moment";
 import "./style.scss";
 import { deleteTask, editSubtask } from "Redux/Data/actions";
 import { connect } from "react-redux";
+import { getTrimmedString } from "utils/utils";
 function Task({ task, deleteTask, editSubtask }) {
   const tagColor = (currentTag) => {
     return TAG_OPTIONS.find((tag) => currentTag === tag.value).color;
   };
 
-  console.log("renderin");
   const renderTag = () => {
     return task.tag.map((tag) => {
       return (
@@ -64,7 +64,9 @@ function Task({ task, deleteTask, editSubtask }) {
               defaultChecked={task.done}
               onChange={(e) => handleSubtaskChange(e, task.id)}
             />
-            <span className="subtask-title">{task.name}</span>
+            <span className="subtask-title">
+              {getTrimmedString(task.name, 25)}
+            </span>
           </p>
         ))}
       </div>
@@ -83,7 +85,7 @@ function Task({ task, deleteTask, editSubtask }) {
           </Dropdown>
         </div>
         <div className="task-title-wrapper">
-          <p className="task-title">{task.name}</p>
+          <p className="task-title">{getTrimmedString(task.name, 10)}</p>
           <p className="task-date support-text">
             {moment(task.date).format("ddd, MMM D")}
           </p>

@@ -1,6 +1,10 @@
 .tasks-chart-wrapper {
-  margin-top: 3rem;
+  position: relative;
+  margin-top: 1rem;
+  padding-top: 2rem;
   display: flex;
+  max-width: 300px;
+  margin: 0 auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -24,6 +28,43 @@
         height: 20px;
         border-radius: 20px;
         margin-right: 8px;
+      }
+    }
+  }
+  .chart-modal-switch {
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 1%;
+    right: 0%;
+  }
+}
+.chart-modal {
+  .ant-modal {
+    .ant-modal-content {
+      .ant-modal-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .tasks-chart {
+          width: 200px;
+        }
+        .tasks-chart-legend {
+          display: flex;
+          margin-top: 1rem;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          .legend {
+            display: flex;
+            flex-direction: row;
+            .status-color {
+              margin-right: 0.2rem;
+            }
+          }
+        }
       }
     }
   }

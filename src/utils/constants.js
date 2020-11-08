@@ -21,7 +21,7 @@ export const TASK_STATUSES = [
 ];
 
 export const TAG_DISPLAY = [
-  { label: "all", value: "All", color: "#2D9CDB" },
+  { label: "all", value: "", color: "#2D9CDB" },
   ...TAG_OPTIONS,
 ];
 export const TASK_ACTIONS = {
@@ -31,4 +31,5 @@ export const TASK_ACTIONS = {
   SET_TASKS: "SET_TASKS",
   EDIT_SUBTASK: "EDIT_SUBTASK",
   CHANGE_TASK_STATUS: "CHANGE_TASK_STATUS",
+  SET_FILTER_TAG: "SET_FILTER_TAG",
 };

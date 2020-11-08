@@ -1,10 +1,13 @@
 .task {
   width: 300px;
-  margin: 1rem;
+  margin: 1rem auto;
   .ant-card {
     .ant-card-body {
       padding: 1rem;
     }
+  }
+  .task-description {
+    word-wrap: break-word;
   }
   .task-header {
     display: flex;
@@ -26,13 +29,16 @@
     justify-content: space-between;
     align-items: center;
     .task-title {
-      font-size: 2rem;
+      font-size: 1.5rem;
+      margin: 1rem 0;
     }
   }
+
   .subtasks-wrapper {
     .subtask {
       display: flex;
       width: 100%;
+      margin: 1rem;
       .subtask-title {
         margin-left: 1rem;
       }

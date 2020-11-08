@@ -5,10 +5,10 @@
     display: flex;
     align-items: center;
     width: 100%;
-    justify-content: center;
     .page-nav-back {
       font-size: 1.5rem;
       align-self: center;
+      margin-right: 1.5rem;
     }
     .page-title {
       font-size: 1.5rem;
@@ -16,10 +16,11 @@
   }
   .todo-page-form-wrapper {
     max-width: 768px;
-    margin: 0 auto;
-    padding: 4rem;
+    // padding: 4rem;
+    margin: 4rem;
+    margin-left: 6rem;
     @media only screen and (max-width: 768px) {
-      padding: 1rem;
+      margin: 1rem;
       .form-group-flex {
         flex-direction: column;
         .form-group-main {

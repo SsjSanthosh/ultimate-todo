@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Pages/Login";
 
 import Dashboard from "Pages/Dashboard";
@@ -43,6 +43,9 @@ function App({ loginUser, setTasks, setUser }) {
             path={["/new-task", "/edit-task/:id"]}
             component={TodoForm}
           ></PrivateRoute>
+          <Route exact path="*">
+            <Redirect to="/dashboard" />
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>
