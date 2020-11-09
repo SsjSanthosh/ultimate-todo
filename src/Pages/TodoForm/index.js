@@ -112,7 +112,7 @@ function TodoForm({ match }) {
                 <Radio.Group>
                   {TASK_STATUSES.map((status) => {
                     return (
-                      <Radio.Button value={status.value}>
+                      <Radio.Button value={status.value} key={status.value}>
                         {status.name}
                       </Radio.Button>
                     );

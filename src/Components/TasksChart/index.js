@@ -58,31 +58,30 @@ function TasksChart() {
       </div>
     );
   };
-  return (
-    tasks.length && (
-      <div className="tasks-chart-wrapper">
-        <p
-          className="chart-modal-switch"
-          onClick={() => setIsModalVisible(true)}
+  return tasks.length ? (
+    <div className="tasks-chart-wrapper">
+      <p className="chart-modal-switch" onClick={() => setIsModalVisible(true)}>
+        <ArrowsAltOutlined />
+      </p>
+      <p className="tasks-chart-title">Your task trends this week.</p>
+      {renderPieChart()}
+      {renderLegends()}
+      {isModalVisible && (
+        <Modal
+          title="Your weekly trends"
+          wrapClassName="chart-modal"
+          visible={isModalVisible}
+          onCancel={() => setIsModalVisible(false)}
         >
-          <ArrowsAltOutlined />
-        </p>
-        <p className="tasks-chart-title">Your task trends this week.</p>
-        {renderPieChart()}
-        {renderLegends()}
-        {isModalVisible && (
-          <Modal
-            title="Your weekly trends"
-            wrapClassName="chart-modal"
-            visible={isModalVisible}
-            onCancel={() => setIsModalVisible(false)}
-          >
-            {renderPieChart({ animate: true })}
-            {renderLegends()}
-          </Modal>
-        )}
-      </div>
-    )
+          {renderPieChart({ animate: true })}
+          {renderLegends()}
+        </Modal>
+      )}
+    </div>
+  ) : (
+    <p className="tasks-chart-empty">
+      No tasks, add tasks to see distribution here.
+    </p>
   );
 }
 
