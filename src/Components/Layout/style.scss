@@ -8,7 +8,10 @@
     flex: 1;
   }
   .user-info {
-    flex: 2.5;
+    max-width: 250px;
+    @media only screen and (max-width: 768px) {
+      max-width: 100vw;
+    }
   }
   .page-content {
     flex: 12;
