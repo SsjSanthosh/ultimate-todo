@@ -58,4 +58,11 @@ div {
   .ant-btn {
     border-radius: 4px;
   }
+  .ant-form-item {
+    .ant-form-item-label {
+      > label {
+        color: rgba(0, 0, 0, 0.35);
+      }
+    }
+  }
 }

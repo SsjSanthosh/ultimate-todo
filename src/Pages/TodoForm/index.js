@@ -143,7 +143,7 @@ function TodoForm({ match }) {
               </div>
             </div>
             <div className="form-group-subtasks">
-              <p className="mb8">Subtasks</p>
+              <p className="mb8 subtasks-label">Subtasks</p>
               <Form.List name="subtasks">
                 {(fields, { add, remove }) => (
                   <>
