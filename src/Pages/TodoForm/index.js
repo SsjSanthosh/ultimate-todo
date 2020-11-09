@@ -27,6 +27,22 @@ function TodoForm({ match }) {
   const dispatch = useDispatch();
   const tasks = useSelector(({ tasks }) => tasks.tasks);
 
+  // Single task structure
+  /* 
+    {
+        name:"task name",
+        id:" unique id " ,
+        description:"task description",
+        subtasks:[
+            {
+                id,name,done
+            }
+        ],
+        tag:["misc"]
+        status:"todo, progress, done (one of)"
+    }
+*/
+
   const newTaskValues = {
     name: "",
     subtasks: [],

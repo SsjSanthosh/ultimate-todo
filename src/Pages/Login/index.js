@@ -3,11 +3,12 @@ import WebsiteLogo from "img/website_logo.png";
 import { Form, Input, Button, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
-import "./style.scss";
 import { LOGIN_API_ENDPOINT } from "utils/endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "Redux/Auth/actions";
 import { useHistory } from "react-router-dom";
+
+import "./style.scss";
 function Login() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -40,10 +41,10 @@ function Login() {
     <div className="login-page">
       <div className="login-hero bg-color-primary">
         <img src={WebsiteLogo} alt="Website Logo" />
-        <h2 className="color-white">Assignments</h2>
+        <h2 className="color-white login-hero-title">Assignments</h2>
       </div>
       <div className="login-form-wrapper">
-        <h1>To-do App</h1>
+        <h1 className="login-form-title">To-do App</h1>
         <div className="login-form">
           <Form
             name="login-form"
@@ -86,6 +87,16 @@ function Login() {
             </Form.Item>
           </Form>
         </div>
+        <p className="support-text">
+          Tip - check out available users{" "}
+          <a
+            href="https://reqres.in/api/users"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here
+          </a>
+        </p>
       </div>
     </div>
   );

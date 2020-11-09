@@ -30,7 +30,6 @@ function TaskList({ status, tasks }) {
   return (
     <Card
       title={status.title}
-      // style={{ backgroundColor: status.color }}
       className="bg-color-grey-light task-list"
       bordered={false}
     >
