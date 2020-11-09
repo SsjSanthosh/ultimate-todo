@@ -1,9 +1,11 @@
-import Header from "Components/Header";
 import Navbar from "Components/Navbar";
 import UserInfo from "Components/UserInfo";
 import React from "react";
 import "./style.scss";
-function Layout({ children, ...props }) {
+function Layout({ children }) {
+  /* 
+    This component serves as a container for all the login protected routes.
+  */
   return (
     <div className="page-layout">
       <Navbar />

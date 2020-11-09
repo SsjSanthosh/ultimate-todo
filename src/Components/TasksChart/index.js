@@ -71,7 +71,9 @@ function TasksChart() {
           title="Your weekly trends"
           wrapClassName="chart-modal"
           visible={isModalVisible}
+          onOk={() => setIsModalVisible(false)}
           onCancel={() => setIsModalVisible(false)}
+          cancelText="Close"
         >
           {renderPieChart({ animate: true })}
           {renderLegends()}

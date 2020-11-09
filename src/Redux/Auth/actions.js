@@ -13,6 +13,7 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const setUser = () => async (dispatch) => {
+  // user will always be the same. Reqres does not filter/search query by user email.
   const user = await (await fetch(GET_USER_API_ENDPOINT)).json();
   dispatch({ type: AUTH_ACTIONS.SET_USER, payload: user.data });
 };
