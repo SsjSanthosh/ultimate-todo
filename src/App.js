@@ -14,6 +14,7 @@ import {
   LOCAL_STORAGE_TASKS_NAME,
 } from "utils/constants";
 import { setTasks } from "Redux/Data/actions";
+
 import "antd/dist/antd.less";
 import "utils/utils.scss";
 function App() {

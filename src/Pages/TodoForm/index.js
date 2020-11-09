@@ -54,6 +54,7 @@ function TodoForm({ match }) {
   };
 
   const taskId = match.params.id;
+
   const handleFormSubmit = (values) => {
     taskId
       ? dispatch(editTask({ ...values }))
@@ -110,7 +111,7 @@ function TodoForm({ match }) {
                   className="bg-color-grey-light"
                 />
               </Form.Item>
-
+              {/* This is the unique id, user has no interaction with it so its hidden */}
               <Form.Item name="id" style={{ display: "none" }}>
                 <Input type="hidden" />
               </Form.Item>
@@ -120,6 +121,7 @@ function TodoForm({ match }) {
                   className="bg-color-grey-light"
                 />
               </Form.Item>
+
               <Form.Item
                 label="Branch to"
                 name="status"
@@ -135,6 +137,9 @@ function TodoForm({ match }) {
                   })}
                 </Radio.Group>
               </Form.Item>
+
+              {/* At least one tag is required. Multiple tags are possible. */}
+
               <Form.Item
                 label="Select tag"
                 name="tag"
@@ -142,15 +147,20 @@ function TodoForm({ match }) {
               >
                 <Checkbox.Group options={TAG_OPTIONS}></Checkbox.Group>
               </Form.Item>
+
               <Form.Item label="Select date" name="date">
                 <DatePicker></DatePicker>
               </Form.Item>
+
               <div className="form-group-buttons">
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
                     Submit
                   </Button>
                 </Form.Item>
+
+                {/* If editing, give the option of deleting the task */}
+
                 {taskId && (
                   <Button type="primary" danger onClick={handleTaskDelete}>
                     Delete task
@@ -158,6 +168,9 @@ function TodoForm({ match }) {
                 )}
               </div>
             </div>
+
+            {/* This is the dynamic form-field for the subtasks */}
+
             <div className="form-group-subtasks">
               <p className="mb8 subtasks-label">Subtasks</p>
               <Form.List name="subtasks">

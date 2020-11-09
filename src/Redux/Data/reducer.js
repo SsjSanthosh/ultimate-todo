@@ -25,9 +25,9 @@ const dataReducer = (state = initialState, action) => {
   let task;
   switch (type) {
     case TASK_ACTIONS.ADD_TASK:
-      const addTask = { ...state, tasks: [...state.tasks, payload] };
+      const addTask = [...state.tasks, payload];
       setTasksInLocalStorage(addTask);
-      return addTask;
+      return { ...state, tasks: addTask };
 
     case TASK_ACTIONS.EDIT_TASK:
       index = state.tasks.findIndex((task) => task.id === payload.id);
@@ -57,7 +57,10 @@ const dataReducer = (state = initialState, action) => {
       return { ...state, tasks: [...editedTasks] };
 
     case TASK_ACTIONS.SET_TASKS:
-      return { ...JSON.parse(payload), filterTag: "" };
+      return {
+        ...state,
+        tasks: [...payload],
+      };
 
     case TASK_ACTIONS.CHANGE_TASK_STATUS:
       let { id, status } = payload;

@@ -13,7 +13,11 @@ export const deleteTask = (id) => (dispatch) => {
 };
 
 export const setTasks = (tasks) => (dispatch) => {
-  return dispatch({ type: TASK_ACTIONS.SET_TASKS, payload: tasks });
+  console.log(JSON.parse(tasks));
+  return dispatch({
+    type: TASK_ACTIONS.SET_TASKS,
+    payload: JSON.parse(tasks),
+  });
 };
 
 export const editSubtask = (taskId, subtaskId, value) => (dispatch) => {
