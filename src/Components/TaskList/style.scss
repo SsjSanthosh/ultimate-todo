@@ -1,19 +1,22 @@
-.task-list {
+.task-list-wrapper {
+  min-width: 330px;
   margin: 1.5rem;
-  min-height: 150px;
-  .ant-card-body {
-    padding: 0rem;
-    .card-title {
-      font-size: 1.5rem;
-      text-align: center;
-      border-radius: 8px 8px 0 0;
+  .task-list {
+    min-height: 150px;
+    .ant-card-body {
+      padding: 0rem;
+      .card-title {
+        font-size: 1.5rem;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
     }
-  }
-  .task-list-empty {
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
+    .task-list-empty {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 150px;
+    }
   }
 }

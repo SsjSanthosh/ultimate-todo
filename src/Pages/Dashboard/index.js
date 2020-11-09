@@ -51,7 +51,7 @@ function Dashboard() {
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                       key={status.value}
-                      className="task-list"
+                      className="task-list-wrapper"
                       style={{
                         backgroundColor: snapshot.isDraggingOver
                           ? "#f2f2f2"
