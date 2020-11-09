@@ -56,7 +56,7 @@ function Dashboard() {
                         backgroundColor: snapshot.isDraggingOver
                           ? "#f2f2f2"
                           : "#fff",
-                        minWidth: 320,
+                        minWidth: 330,
                       }}
                     >
                       <TaskList

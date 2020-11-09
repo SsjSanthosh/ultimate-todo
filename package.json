@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^12.2.0",
     "antd": "^4.8.0",
     "axios": "^0.21.0",
-    "dayjs": "^1.9.5",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
